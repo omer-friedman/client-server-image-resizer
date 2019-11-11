@@ -13,6 +13,19 @@ que = Queue(connection=red)
 
 @app.route('/api/resize_image', methods=['POST'])
 def handle_resize_request(image_encode="", image_props="", multitask=False):
+    """
+    Parameters
+    ----------
+    :param image_encode:  numpy.ndarray
+        image encoded as ndarray
+    :param image_props : Dict
+        contains the new image properties: width, height
+    :param multitask : boolean
+        will enter the task to a queue if True
+        else will run immediately
+
+    returns file block contains the image encoded and the new image properties.
+    """
     if not multitask:
         image_encode = request.files['image'].read()
         image_props = json.load(request.files['datas'])
@@ -28,6 +41,9 @@ def handle_resize_request(image_encode="", image_props="", multitask=False):
 
 @app.route('/api/new_task', methods=['POST'])
 def add_new_resize_task_to_queue():
+    """
+    function will add the resize task to a queue and after the task completed will return the response.
+    """
     try:
         image_encode = request.files['image'].read()
         image_props = json.load(request.files['datas'])
