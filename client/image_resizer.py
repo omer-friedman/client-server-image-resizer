@@ -5,7 +5,7 @@ import os
 import numpy as np
 import json
 import cv2
-import imghdr
+from imghdr import what
 
 allowed_extensions = ['jpg', 'jpeg', 'png']
 host = 'http://localhost'
@@ -44,7 +44,7 @@ def is_valid_image(image_path):
     returns True if the image exists and is legal (has legal extension), False otherwise
     """
     try:
-        if imghdr.what(image_path) not in allowed_extensions:
+        if what(image_path) not in allowed_extensions:
             return False
     except Exception as e:
         return False
