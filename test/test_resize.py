@@ -1,5 +1,5 @@
-import time
 from test_argument_parser import ArgumentParser
+import time
 import cv2
 import os
 import threading
@@ -20,7 +20,7 @@ def main():
         wait_until_gpu_usage_free(max_gpu)  # Barrier
         ins_thread = threading.Thread(target=save_video_as_resized_images, args=(vid_path, i+1))
         ins_thread.start()
-        if i + 1 <= n:
+        if i + 2 <= n:
             print("Sleeping for " + str(m) + " seconds.")
             time.sleep(m)
 
@@ -37,7 +37,8 @@ def save_video_as_resized_images(vid_path, instance):
     returns file block contains the image encoded and the new image properties.
     """
     temp_folder = tempfile.gettempdir() + os.sep
-    directory = temp_folder + "vid-instance" + str(instance) + os.sep
+    sub_directory = "vid-instance"
+    directory = temp_folder + sub_directory + str(instance) + os.sep
     if not os.path.exists(directory):
         os.makedirs(directory)
     vid_cap = cv2.VideoCapture(vid_path)

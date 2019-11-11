@@ -108,7 +108,6 @@ def save_new_resized_image(new_sized_image, file_drop_loc):
     returns file block contains the image encoded and the new image properties.
     """
     try:
-        print(type(new_sized_image))
         cv2.imwrite(file_drop_loc, new_sized_image)
         print("Image saved to: {}".format(file_drop_loc))
     except Exception as e:
